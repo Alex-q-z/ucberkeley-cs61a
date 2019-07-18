@@ -25,6 +25,12 @@ def has_seven(k):
     True
     """
     "*** YOUR CODE HERE ***"
+    if k != 7 and k < 10:
+        return False
+    elif k % 10 == 7:
+        return True
+    else:
+        return has_seven(k // 10)
 
 def summation(n, term):
 
@@ -45,6 +51,10 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        return term(1)
+    else:
+        return term(n) + summation(n-1, term)
 
 def square(x):
     return x * x
@@ -77,6 +87,12 @@ def accumulate(combiner, base, n, term):
     72
     """
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return base
+    elif n == 1:
+        return combiner(term(1), base)
+    else:
+        return combiner(term(n), accumulate(combiner, base, n-1, term))
 
 def summation_using_accumulate(n, term):
     """Returns the sum of term(1) + ... + term(n). The implementation
@@ -92,6 +108,7 @@ def summation_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, term)
 
 def product_using_accumulate(n, term):
     """An implementation of product using accumulate.
@@ -106,6 +123,7 @@ def product_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
 
 def filtered_accumulate(combiner, base, pred, n, term):
     """Return the result of combining the terms in a sequence of N terms
@@ -132,6 +150,8 @@ def filtered_accumulate(combiner, base, pred, n, term):
     """
     def combine_if(x, y):
         "*** YOUR CODE HERE ***"
+        x_flag = pred(x)
+        y_flag = pred(y)
     return accumulate(combine_if, base, n, term)
 
 def odd(x):
