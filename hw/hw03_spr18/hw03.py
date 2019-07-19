@@ -152,6 +152,12 @@ def filtered_accumulate(combiner, base, pred, n, term):
         "*** YOUR CODE HERE ***"
         x_flag = pred(x)
         y_flag = pred(y)
+        if x_flag:
+            # only need to check x_flag,
+            # according to my use of combiner() above
+            return combiner(x, y)
+        else:
+            return y
     return accumulate(combine_if, base, n, term)
 
 def odd(x):
@@ -176,6 +182,18 @@ def make_repeater(f, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    # version No. 1
+    '''
+    if n == 0:
+        return identity
+    elif n == 1:
+        return f
+    else:
+        return lambda x : f(make_repeater(f, n-1)(x))
+    '''
+    # version No. 2
+    # not fixed yet
+    # return lambda x : accumulate(compose1, x, n, lambda m : f(x))
 
 def compose1(f, g):
     """Return a function h, such that h(x) = f(g(x))."""
